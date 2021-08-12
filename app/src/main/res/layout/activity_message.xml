@@ -60,6 +60,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/teal_700"
+            android:hint="Type a Message"
             android:layout_toLeftOf="@id/btn_send"
             android:background="@android:color/transparent" />
 

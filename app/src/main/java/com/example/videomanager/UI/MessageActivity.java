@@ -99,6 +99,7 @@ ImageButton sendBTN;
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
 
+        reference.child("Chats").push().setValue(hashMap);
     }
 
     @Override
