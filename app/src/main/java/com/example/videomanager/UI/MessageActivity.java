@@ -3,9 +3,11 @@ package com.example.videomanager.UI;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.hardware.lights.LightState;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,11 +15,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.videomanager.R;
-import com.example.videomanager.model.UserModel;
+import com.example.videomanager.adapter.MessageAdapter;
+import com.example.videomanager.model.Chat;
+import com.example.videomanager.model.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MessageActivity extends AppCompatActivity {
 private TextView username;
@@ -36,7 +41,10 @@ private DatabaseReference reference;
 private Intent intent;
 private RecyclerView recyclerView;
 private EditText msg_editText;
-ImageButton sendBTN;
+private ImageButton sendBTN;
+private MessageAdapter messageAdapter;
+private List<Chat> mChat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +54,15 @@ ImageButton sendBTN;
         //Widgets
         imageView = findViewById(R.id.imageView_profile);
         username = findViewById(R.id.usernamey);
-        recyclerView = findViewById(R.id.recyclerViewMessage);
         msg_editText = findViewById(R.id.text_content);
         sendBTN = findViewById(R.id.btn_send);
+
+        //RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewMessage);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         //begin all codes here
         intent = getIntent();
@@ -60,13 +74,15 @@ ImageButton sendBTN;
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserModel user = snapshot.getValue(UserModel.class);
+                Users user = snapshot.getValue(Users.class);
                 username.setText(user.getUsername());
 
                     Glide.with(MessageActivity.this)
                             .load(user.getImageURL())
-                            .placeholder(R.drawable.ic_launcher_background)
+                            .placeholder(R.mipmap.ic_launcher)
                             .into(imageView);
+
+                    readMessage(fuser.getUid(), userid, user.getImageURL());
             }
 
             @Override
@@ -102,8 +118,37 @@ ImageButton sendBTN;
         reference.child("Chats").push().setValue(hashMap);
     }
 
-    @Override
-    public void setSupportActionBar(@Nullable androidx.appcompat.widget.Toolbar toolbar) {
-//        super.setSupportActionBar(toolbar);
+//    @Override
+//    public void setSupportActionBar(@Nullable androidx.appcompat.widget.Toolbar toolbar) {
+//
+//    }
+
+    private void readMessage(String myid, String userid, String imageurl){
+        mChat = new ArrayList<>();
+
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mChat.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Chat chat = dataSnapshot.getValue(Chat.class);
+
+                    if (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) ||
+                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid)){
+                        mChat.add(chat);
+                    }
+                    messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageurl);
+                    recyclerView.setAdapter(messageAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 }

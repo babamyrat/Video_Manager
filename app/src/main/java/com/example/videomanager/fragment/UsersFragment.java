@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.videomanager.R;
 import com.example.videomanager.adapter.UserAdapter;
-import com.example.videomanager.model.UserModel;
+import com.example.videomanager.model.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +30,7 @@ public class UsersFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
-    private List<UserModel> mUsers;
+    private List<Users> mUsers;
 
     public UsersFragment() {
         // Required empty public constructor
@@ -63,7 +63,7 @@ public class UsersFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    UserModel user = dataSnapshot.getValue(UserModel.class);
+                    Users user = dataSnapshot.getValue(Users.class);
                     assert user != null;
                     if (!user.getId().equals(firebaseUser.getUid())){
                         mUsers.add(user);

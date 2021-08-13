@@ -14,17 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.videomanager.R;
 import com.example.videomanager.UI.MessageActivity;
-import com.example.videomanager.model.UserModel;
+import com.example.videomanager.model.Users;
 
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context context;
-    private List<UserModel> mUsers;
+    private List<Users> mUsers;
 
     //Constructor
-    public UserAdapter(Context context, List<UserModel> mUsers) {
+    public UserAdapter(Context context, List<Users> mUsers) {
         this.context = context;
         this.mUsers = mUsers;
     }
@@ -39,7 +39,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        UserModel users = mUsers.get(position);
+        Users users = mUsers.get(position);
         holder.username.setText(users.getUsername());
 
 
@@ -47,7 +47,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
             Glide.with(context)
                     .load(users.getImageURL())
-                    .placeholder(R.drawable.ic_launcher_background)
+                    .placeholder(R.mipmap.ic_launcher)
                     .into(holder.imageView);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

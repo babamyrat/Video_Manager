@@ -2,16 +2,16 @@ package com.example.videomanager.model;
 
 import java.sql.DataTruncation;
 
-public class UserModel {
+public class Users {
     private String id;
     private String username;
     private String imageURL;
 
-    public UserModel() {
+    public Users() {
 
     }
 
-    public UserModel(String id, String username, String imageURL) {
+    public Users(String id, String username, String imageURL) {
         this.id = id;
         this.username = username;
         this.imageURL = imageURL;
