@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar2 = findViewById(R.id.progressBar2);
 
         auth = FirebaseAuth.getInstance();
-
         clickLogin();
 
         //Adding Event Listener to Button Register

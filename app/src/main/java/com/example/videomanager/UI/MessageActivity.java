@@ -44,6 +44,7 @@ private EditText msg_editText;
 private ImageButton sendBTN;
 private MessageAdapter messageAdapter;
 private List<Chat> mChat;
+private  String userid;
 
 
     @Override
@@ -66,7 +67,7 @@ private List<Chat> mChat;
 
         //begin all codes here
         intent = getIntent();
-        String userid = intent.getStringExtra("userid");
+        userid = intent.getStringExtra("userid");
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("MyUsers").child(userid);
@@ -116,7 +117,30 @@ private List<Chat> mChat;
         hashMap.put("message", message);
         reference.child("Chats").push().setValue(hashMap);
 
+
+        final DatabaseReference chatRef = FirebaseDatabase.getInstance()
+                .getReference("ChatList")
+                .child(fuser.getUid())
+                .child(userid);
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()){
+                    chatRef.child("id").setValue(userid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
     }
+
 
 //    @Override
 //    public void setSupportActionBar(@Nullable androidx.appcompat.widget.Toolbar toolbar) {

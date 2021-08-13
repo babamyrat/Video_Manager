@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.example.videomanager.R;
 import com.example.videomanager.fragment.ChatsFragment;
+import com.example.videomanager.fragment.ProfileFragment;
 import com.example.videomanager.fragment.UsersFragment;
 import com.example.videomanager.model.Users;
 import com.google.android.material.tabs.TabLayout;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
         viewPagerAdapter.addFragment(new UsersFragment(), "Users");
+        viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
