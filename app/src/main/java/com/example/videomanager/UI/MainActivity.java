@@ -30,8 +30,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseUser firebaseUser;
-    DatabaseReference myRef;
+   private FirebaseUser firebaseUser;
+   private DatabaseReference myRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

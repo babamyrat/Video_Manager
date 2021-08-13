@@ -36,7 +36,7 @@ import java.util.List;
 public class MessageActivity extends AppCompatActivity {
 private TextView username;
 private ImageView imageView;
-private FirebaseUser  fuser;
+private FirebaseUser fuser;
 private DatabaseReference reference;
 private Intent intent;
 private RecyclerView recyclerView;
@@ -114,8 +114,8 @@ private List<Chat> mChat;
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
-
         reference.child("Chats").push().setValue(hashMap);
+
     }
 
 //    @Override
@@ -143,12 +143,11 @@ private List<Chat> mChat;
                 }
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
     }
 }

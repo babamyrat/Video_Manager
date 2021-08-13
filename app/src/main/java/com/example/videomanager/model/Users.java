@@ -1,6 +1,5 @@
 package com.example.videomanager.model;
 
-import java.sql.DataTruncation;
 
 public class Users {
     private String id;

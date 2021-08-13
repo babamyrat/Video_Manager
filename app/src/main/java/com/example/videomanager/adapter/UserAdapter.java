@@ -42,9 +42,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         Users users = mUsers.get(position);
         holder.username.setText(users.getUsername());
 
-
-          //  holder.imageView.setImageResource(R.mipmap.ic_launcher);
-
             Glide.with(context)
                     .load(users.getImageURL())
                     .placeholder(R.mipmap.ic_launcher)
@@ -67,7 +64,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public int getItemCount() {
         return mUsers.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView username;

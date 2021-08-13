@@ -28,14 +28,14 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
     //Widgets
-    EditText userET, passET, emailET;
-    Button registerBtn;
-    DatabaseReference myRef;
-    TextView txtLogin;
-    ProgressBar progressBar2;
+    private EditText userET, passET, emailET;
+    private Button registerBtn;
+    private DatabaseReference myRef;
+    private TextView txtLogin;
+    private ProgressBar progressBar2;
 
     //Firebase
-    FirebaseAuth auth;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar2 = findViewById(R.id.progressBar2);
 
         auth = FirebaseAuth.getInstance();
-
 
         clickLogin();
 
@@ -72,10 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
     }
 
     private  void RegisterNow(final String username, String email, String password){
@@ -117,8 +112,6 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
     }
 
     //click Login text

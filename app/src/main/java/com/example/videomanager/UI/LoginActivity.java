@@ -21,11 +21,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText userETLogin, passETLogin;
-    Button loginBtn;
-    TextView txtRegister;
-    ProgressBar progressBar;
-    FirebaseUser firebaseUser;
+   private EditText userETLogin, passETLogin;
+   private Button loginBtn;
+   private TextView txtRegister;
+   private ProgressBar progressBar;
+   private FirebaseUser firebaseUser;
 
     //Firebase
     FirebaseAuth auth;
